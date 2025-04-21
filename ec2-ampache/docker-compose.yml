@@ -1,0 +1,33 @@
+services:
+  mariadb:
+    image: mariadb:10.5
+    container_name: ampache_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: ampache_db
+      MYSQL_USER: ampache_user
+      MYSQL_PASSWORD: ampache_pass
+    volumes:
+      - db_data:/var/lib/mysql
+
+  ampache:
+    image: ampache/ampache
+    container_name: ampache_web
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    ports:
+      - "80:80"
+    environment:
+      - TZ=UTC
+    volumes:
+      - ampache_config:/var/www/config
+      - ampache_media:/media
+    links:
+      - mariadb
+
+volumes:
+  db_data:
+  ampache_config:
+  ampache_media:
