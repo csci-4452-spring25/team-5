@@ -24,7 +24,8 @@ services:
     volumes:
       - ampache_config:/var/www/config
       - ampache_media:/media
-
+    links:
+      - mariadb
 
 volumes:
   db_data:
