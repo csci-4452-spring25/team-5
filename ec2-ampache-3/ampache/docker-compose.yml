@@ -1,0 +1,33 @@
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ampachedb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+
+  ampache:
+    image: ampache/ampache:latest
+    container_name: ampache
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - "AMPACHE_ADMIN_PASSWORD=adminpassword"
+      - "DB_USER=user"
+      - "DB_PASSWORD=password"
+      - "DB_NAME=ampachedb"
+      - "DB_HOST=mariadb"
+    depends_on:
+      - mariadb
+    volumes:
+      - ./music:/media/music:ro
+
+volumes:
+  db_data:
