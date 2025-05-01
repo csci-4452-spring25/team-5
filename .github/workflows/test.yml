@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  smoke-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,7 @@ jobs:
         uses: docker/setup-compose-action@v1
 
       - name: Docker Compose up
-        uses: hoverkraft-tech/compose-action@v0.0.0
+        uses: hoverkraft-tech/compose-action@v2.2.0
         with:
           compose-file: ./docker-compose.yml
           up-flags: --build
@@ -37,7 +37,7 @@ jobs:
 
       - name: Docker Compose down
         if: always()
-        uses: hoverkraft-tech/compose-action@v0.0.0
+        uses: hoverkraft-tech/compose-action@v2.2.0
         with:
           compose-file: ./docker-compose.yml
           down-flags: --volumes
