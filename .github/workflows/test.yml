@@ -1,4 +1,4 @@
-name: test
+name: CI
 
 on:
   push:
@@ -9,17 +9,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v4
+
 
       - name: Set up Docker Compose
         uses: docker/setup-compose-action@v1
 
+
       - name: Docker Compose up
         uses: hoverkraft-tech/compose-action@v2.2.0
         with:
-          compose-file: ./docker-compose.yml
+
+          cwd: ampache
+          compose-file: docker-compose.yml
           up-flags: --build
+
 
       - name: Wait for Ampache
         env:
@@ -35,9 +40,11 @@ jobs:
           echo "Ampache did not start in time" >&2
           exit 1
 
+
       - name: Docker Compose down
         if: always()
         uses: hoverkraft-tech/compose-action@v2.2.0
         with:
-          compose-file: ./docker-compose.yml
+          cwd: ampache
+          compose-file: docker-compose.yml
           down-flags: --volumes
