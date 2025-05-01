@@ -1,0 +1,43 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check repo
+      - uses: actions/checkout@v4
+
+      # Docker Compose is available
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1            
+
+      # Bring up services
+      - name: Docker Compose up
+        uses: hoverkraft-tech/compose-action@v0.0.0     
+        with:
+          compose-file: ./docker-compose.yml
+          up-flags: --build                              # rebuild images if needed
+
+      # Wait for Ampache, test
+      - name: Wait for Ampache
+        run: |
+          for i in {1..30}; do
+            if curl -sf http://localhost:${{ secrets.AMPACHE_PORT:-80 }} >/dev/null; then
+              echo "Ampache is up!"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Ampache did not start in time" >&2
+          exit 1
+
+      # burn everything
+      - name: Docker Compose down
+        if: always()
+        uses: hoverkraft-tech/compose-action@v0.0.0     
+        with:
+          compose-file: ./docker-compose.yml
+          down-flags: --volumes
