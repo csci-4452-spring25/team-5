@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Docker Compose
@@ -18,7 +18,7 @@ jobs:
       - name: Docker Compose up
         uses: hoverkraft-tech/compose-action@v2.2.0
         with:
-          cwd: ec2-ampache-3
+          cwd: ec2-ampache-3/ampache
           compose-file: docker-compose.yml
           up-flags: --build
 
@@ -31,13 +31,13 @@ jobs:
             fi
             sleep 2
           done
-          echo "Ampache did not start in time" >&2
+          echo "Timed out waiting for Ampache" >&2
           exit 1
 
       - name: Docker Compose down
         if: always()
         uses: hoverkraft-tech/compose-action@v2.2.0
         with:
-          cwd: ec2-ampache-3
+          cwd: ec2-ampache-3/ampache
           compose-file: docker-compose.yml
           down-flags: --volumes
