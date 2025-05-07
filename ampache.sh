@@ -12,6 +12,7 @@ PROJECT_DIR="/home/ubuntu/ampache"
 MUSIC_DIR="${PROJECT_DIR}/music"
 CONFIG_DIR="${PROJECT_DIR}/config"
 CONFIG_FILE="${CONFIG_DIR}/ampache.cfg.php"
+S3_BUCKET="ampache_bucket"
 
 #Basic system setup and docker
 sudo apt-get update && sudo apt-get upgrade -y
@@ -36,6 +37,7 @@ mkdir -p "${CONFIG_DIR}"
 sudo chown -R 1000:1000 "${MUSIC_DIR}"
 cd ${PROJECT_DIR}
 cd "${PROJECT_DIR}" || mkdir -p "${PROJECT_DIR}" && cd "${PROJECT_DIR}"
+aws s3 cp "s3://${S3_BUCKET}/music/" "${MUSIC_DIR}/" --recursive
 
 #Config file for Ampache
 cat > "${CONFIG_FILE}" <<EOF
