@@ -82,3 +82,9 @@ resource "aws_instance" "ampache" {
     Name = "Ampache-EC2"
   }
 }
+
+# S3 Bucket
+resource "aws_s3_bucket" "ampache_bucket" {
+  bucket = var.s3_bucket_name
+  force_destroy = true
+}
