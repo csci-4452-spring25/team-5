@@ -30,6 +30,6 @@ jobs:
       run: terraform apply -auto-approve
 
     - name: S3 music
-      run: aws s3 cp ./music s3://ampache_bucket_956789/music/ --recursive
+      run: aws s3 cp ./music s3://ampache-bucket-956789/music/ --recursive
     
     
