@@ -13,5 +13,5 @@ variable "private_key_path" {
 variable "s3_bucket_name" {
   description = "S3 bucket for music"
   type = string
-  default = "ampache_bucket_956789"
+  default = "ampache-bucket-956789"
 }
