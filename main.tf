@@ -83,7 +83,7 @@ resource "aws_instance" "ampache" {
 }
 
 # S3 Bucket
-resource "aws_s3_bucket" "ampache_bucket" {
+resource "aws_s3_bucket" "ampache_bucket_956789" {
   bucket = var.s3_bucket_name
   force_destroy = true
 }
