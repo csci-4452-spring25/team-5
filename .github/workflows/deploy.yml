@@ -18,9 +18,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-    - name: S3 music
-      run: aws s3 cp ./music s3://ampache_bucket_956789/music/ --recursive
-
     - name: Terraform
       uses: hashicorp/setup-terraform@v3
       with: 
@@ -31,5 +28,8 @@ jobs:
       
     - name: Terraform Apply
       run: terraform apply -auto-approve
+
+    - name: S3 music
+      run: aws s3 cp ./music s3://ampache_bucket_956789/music/ --recursive
     
     
