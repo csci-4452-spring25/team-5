@@ -1,7 +1,6 @@
 #Provider and my profile w/access/secret key.
 provider "aws" {
   region = "us-east-1"
-  profile = "myprofile"
 }
 
 # VPC
