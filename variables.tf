@@ -10,3 +10,8 @@ variable "private_key_path" {
   default     = "~/.ssh/ampache.pem"
 }
 
+variable "s3_bucket_name" {
+  description = "S3 bucket for music"
+  type = string
+  default = "ampache_bucket_956789"
+}
