@@ -12,7 +12,7 @@ PROJECT_DIR="/home/ubuntu/ampache"
 MUSIC_DIR="${PROJECT_DIR}/music"
 CONFIG_DIR="${PROJECT_DIR}/config"
 CONFIG_FILE="${CONFIG_DIR}/ampache.cfg.php"
-S3_BUCKET="ampache_bucket"
+S3_BUCKET="ampache_bucket_956789"
 
 #Basic system setup and docker
 sudo apt-get update && sudo apt-get upgrade -y
